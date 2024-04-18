@@ -64,7 +64,7 @@ Sub buildDmList(strPath)
    Set objFolder = objFSO.GetFolder(strPath)
       
       '---------------------------------------
-      strDmList = "<dmList>"
+      strDmList = "<dmRefList>"
       
       '---------------------------------------
       'For each file found in the selected folder do the following
@@ -445,11 +445,11 @@ Sub buildDmList(strPath)
          '---------------------------------------
       Next
       '---------------------------------------
-      strDmList = strDmList & "</dmList>"
+      strDmList = strDmList & "</dmRefList>"
       
       '---------------------------------------
       'Write dmList to the "dmList.xml" file
-      Set dmListFile = objFSO.OpenTextFile("dmList.xml" ,2 , True)
+      Set dmListFile = objFSO.OpenTextFile("dmRefList.xml" ,2 , True)
       dmListFile.WriteLine strDmList
       
       '---------------------------------------
