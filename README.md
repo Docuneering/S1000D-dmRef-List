@@ -10,7 +10,7 @@ The `dmRefList.vbs` script file will read through a folder and where it finds an
 
 The resultant `dmRefList.xml` file, when opened in XML Notepad, allows you to drag-and-drop the required `dmRef` structure into your S1000D Publication Module file.
 
-![Screenshot](assets/img/XML-Notepad-dmRefList-v1.png) 
+![Screenshot](assets/img/XML-Notepad-dmRefList-v2.png) 
 
 The `dmRefList.xml` file is a disposable file and can be deleted after you have finished building your S1000D Publication Module.
 
