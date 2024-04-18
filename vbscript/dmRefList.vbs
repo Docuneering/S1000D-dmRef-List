@@ -110,11 +110,11 @@ Sub buildDmList(strPath)
                        
                        '---------------------------------------
                         'Clear variables
-								extensionProducer   = ""
+                        extensionProducer   = ""
                         extensionCode       = ""
                         
                         xmlDmCode           = ""
-								modelIdentCode      = ""
+                        modelIdentCode      = ""
                         systemDiffCode      = ""
                         systemCode          = ""
                         subSystemCode       = ""
@@ -126,15 +126,15 @@ Sub buildDmList(strPath)
                         infoCodeVariant     = ""
                         itemLocationCode    = ""
                         
-								learnCode           = ""
+                        learnCode           = ""
                         learnEventCode      = ""
-								
-								xmlIssueInfo        = ""
+                        
+                        xmlIssueInfo        = ""
                         issueNumber         = ""
                         inWork              = ""
                         
-								xmlLanguage         = ""
-								language            = ""
+                        xmlLanguage         = ""
+                        language            = ""
                         country             = ""
 
                         xmlTechName         = ""
