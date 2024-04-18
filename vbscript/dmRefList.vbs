@@ -27,7 +27,7 @@ Option Explicit
 Dim wshShell
 Dim objFSO, objFolder, objFile, objXMLDoc, objXMLNode, objXMLDMAddress, objNode, objDMCode, objIssueInfo, objLanguage, objIssueDate, objTechName, objInfoName, objIdentExtension
 Dim strScriptPath
-Dim strDmList, dmList, dmListFile
+Dim strDmRefList, dmList, dmListFile
 Dim strName, strExt, strNameExt
 Dim strXPath
 Dim xmlDmCode, strDmCode
@@ -64,7 +64,7 @@ Sub buildDmList(strPath)
    Set objFolder = objFSO.GetFolder(strPath)
       
       '---------------------------------------
-      strDmList = "<dmRefList>"
+      strDmRefList = "<dmRefList>"
       
       '---------------------------------------
       'For each file found in the selected folder do the following
@@ -109,10 +109,12 @@ Sub buildDmList(strPath)
                         objXMLDMAddress.loadXML(objXMLNode.xml)
                        
                        '---------------------------------------
-                        'Clear DMC variables
-                        extensionProducer   = ""
+                        'Clear variables
+								extensionProducer   = ""
                         extensionCode       = ""
-                        modelIdentCode      = ""
+                        
+                        xmlDmCode           = ""
+								modelIdentCode      = ""
                         systemDiffCode      = ""
                         systemCode          = ""
                         subSystemCode       = ""
@@ -123,12 +125,23 @@ Sub buildDmList(strPath)
                         infoCode            = ""
                         infoCodeVariant     = ""
                         itemLocationCode    = ""
-                        learnCode           = ""
+                        
+								learnCode           = ""
                         learnEventCode      = ""
+								
+								xmlIssueInfo        = ""
                         issueNumber         = ""
                         inWork              = ""
-                        language            = ""
+                        
+								xmlLanguage         = ""
+								language            = ""
                         country             = ""
+
+                        xmlTechName         = ""
+                        strTechName         = ""
+
+                        xmlInfoName         = ""
+                        strInfoName         = ""
                         
                         '---------------------------------------------------------------------------------------------------------------------
                         'S1000D 3.0 and below
@@ -136,7 +149,7 @@ Sub buildDmList(strPath)
                            
                            '---------------------------------------
                            strXPath = "/dmaddres/dmc/avee"
-                           Set objDMCode = objXMLDMAddress.selectNodes(strXPath) 'selectNodes
+                           Set objDMCode = objXMLDMAddress.selectNodes(strXPath)
                               '---------------------------------------
                               If NOT objDMCode Is Nothing Then
                                  '---------------------------------------
@@ -162,9 +175,8 @@ Sub buildDmList(strPath)
                            
                            '---------------------------------------
                            strXPath = "/dmaddres/issno"
-                           Set objIssueInfo = objXMLDMAddress.selectSingleNode(strXPath) 'selectSingleNode
+                           Set objIssueInfo = objXMLDMAddress.selectSingleNode(strXPath)
                               '---------------------------------------
-                              'To avoid errors ... as long as it finds the <issno> element
                               If NOT objIssueInfo Is Nothing Then
                                  '---------------------------------------
                                  xmlIssueInfo = objIssueInfo.xml
@@ -178,9 +190,8 @@ Sub buildDmList(strPath)
                            
                            '---------------------------------------
                            strXPath = "/dmaddres/language"
-                           Set objLanguage = objXMLDMAddress.selectSingleNode(strXPath) 'selectSingleNode
+                           Set objLanguage = objXMLDMAddress.selectSingleNode(strXPath)
                               '---------------------------------------
-                              'To avoid errors ... as long as it finds the <language> element
                               If NOT objLanguage Is Nothing Then
                                  '---------------------------------------
                                  xmlLanguage = objLanguage.xml
@@ -206,9 +217,8 @@ Sub buildDmList(strPath)
                            
                            '---------------------------------------
                            strXPath = "/dmaddres/dmtitle/techname"
-                           Set objTechName = objXMLDMAddress.selectSingleNode(strXPath) 'selectSingleNode
+                           Set objTechName = objXMLDMAddress.selectSingleNode(strXPath)
                               '---------------------------------------
-                              'To avoid errors ... as long as it finds the <language> element
                               If NOT objTechName Is Nothing Then
                                  '---------------------------------------
                                  xmlTechName = objTechName.xml
@@ -220,9 +230,8 @@ Sub buildDmList(strPath)
                            
                            '---------------------------------------
                            strXPath = "/dmaddres/dmtitle/infoname"
-                           Set objInfoName = objXMLDMAddress.selectSingleNode(strXPath) 'selectSingleNode
+                           Set objInfoName = objXMLDMAddress.selectSingleNode(strXPath)
                               '---------------------------------------
-                              'To avoid errors ... as long as it finds the <language> element
                               If NOT objInfoName Is Nothing Then
                                  '---------------------------------------
                                  xmlInfoName = objInfoName.xml
@@ -431,7 +440,7 @@ Sub buildDmList(strPath)
                            
                         End If
                         '---------------------------------------
-                        strDmList = strDmList & strLine
+                        strDmRefList = strDmRefList & strLine
                         '---------------------------------------
                      Set objXMLDMAddress = Nothing
                      '---------------------------------------
@@ -445,12 +454,12 @@ Sub buildDmList(strPath)
          '---------------------------------------
       Next
       '---------------------------------------
-      strDmList = strDmList & "</dmRefList>"
+      strDmRefList = strDmRefList & "</dmRefList>"
       
       '---------------------------------------
-      'Write dmList to the "dmList.xml" file
+      'Write strDmRefList to the "dmRefList.xml" file
       Set dmListFile = objFSO.OpenTextFile("dmRefList.xml" ,2 , True)
-      dmListFile.WriteLine strDmList
+      dmListFile.WriteLine strDmRefList
       
       '---------------------------------------
    Set objFSO = Nothing
